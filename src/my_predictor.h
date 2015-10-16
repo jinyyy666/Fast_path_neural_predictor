@@ -11,10 +11,10 @@ public:
 
 class my_predictor : public branch_predictor {
 public:
-#define HISTORY_LENGTH	7
+#define HISTORY_LENGTH	15
 #define WEIGHT_LENGTH 8
-#define UNSIGNED 1
-#define WEIGHT_TABLE_LENGTH 1024
+#define UNSIGNED 0
+#define WEIGHT_TABLE_LENGTH 512
 	my_update u;
 	branch_info bi;
 	unsigned int history;     // global history
@@ -38,6 +38,7 @@ public:
 		    // Hash pc to produce the row number in W and calculate the output:
 		    u.index = history ^ (b.address & ((1<<h) -1));
 		    i = b.address % WEIGHT_TABLE_LENGTH;
+		    //i = u.index % WEIGHT_TABLE_LENGTH;
 		    y = r[h] + weights[i][0];
 		    if(y >= 0)
 		        u.direction_prediction(true);
@@ -73,6 +74,7 @@ public:
 			for(unsigned int j = 1; j <= h; ++j){
 			    unsigned int k = v[j-1];
 			    // Use the history information to update the weights:
+			    //weights[k][j] += taken == (1 & (history>>(j-1))) ? 1 : -1;
 			    update_weight(k, j, taken, 1&(history>>(j-1)));
 			}
 		    }
