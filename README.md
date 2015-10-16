@@ -1,5 +1,5 @@
 # fast path-based neural predictor
-1. Please find the code my predictor in my_predictor.h, which is characterized by two functions: 1) predictor and 2) update.
+1. Please find the code my predictor in src/my_predictor.h, which is characterized by two functions: 1) predictor and 2) update.
 
 2. How to run the code on the given benchmark:
 in command line: 
